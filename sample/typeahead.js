@@ -73,7 +73,9 @@
 				suggestionBox.setAttribute(suggestionStyle,true);
 		}
 
-		suggestionBox.style.width=(input.offsetWidth-2)+'px';
+		suggestionBox.style.cssText='visibility: hidden; position: absolute; background-color: white; width: %spx;'.sprintf(input.offsetWidth-2);
+		
+//		suggestionBox.style.width=(input.offsetWidth-2)+'px';
 //		suggestionBox.style.left=input.offsetLeft+'px';
 
 		input.parentNode.insertBefore(suggestionBox,element.nextSibling);
