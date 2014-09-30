@@ -2,6 +2,8 @@ typeahead ajax
 ==============
 Connects to a server and populates a box with matches.
 
+Download: [Release] (https://github.com/manngo/typeahead/releases/download/0.1/typeahead.js "Initial Release")
+
 
 Requirements
 ------------
