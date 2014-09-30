@@ -74,7 +74,7 @@
 		}
 
 		suggestionBox.style.width=(input.offsetWidth-2)+'px';
-		suggestionBox.style.left=input.offsetLeft+'px';
+//		suggestionBox.style.left=input.offsetLeft+'px';
 
 		input.parentNode.insertBefore(suggestionBox,element.nextSibling);
 
@@ -89,26 +89,27 @@
 
 			if(k==8 || k==46 || k==32 || k>=48 && k<=57 || k>=64 && k<=90) {	// fetch results
 				if(input.value.length) {
-say('start')
 					if(ajax.readyState) ajax.abort();
-say(1)
-try {
 					ajax.open('get',url+input.value,true);
-} catch(error) {
-	say('oops');
-	say(error);
-}
-say(2)
 					ajax.send(null);
-say(3)
 				}
 			}
 			else if(k==27) {
 				input.value='';
 			}
-			suggestionBox.style.visibility=(input.value.length)?'visible':'hidden';
+			
+			if(input.value.length) {
+				suggestionBox.style.visibility='visible';
+				document.body.onclick=hide;
+			}
 		}
 
+		function hide() {
+			input.value='';
+			suggestionBox.style.visibility='hidden';
+			document.body.onclick=null;
+		}
+		
 		function process() {
 			emptyNode(suggestionBox);
 			if(ajax.readyState==4) {

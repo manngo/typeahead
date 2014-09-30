@@ -74,7 +74,7 @@
 		}
 
 		suggestionBox.style.width=(input.offsetWidth-2)+'px';
-		suggestionBox.style.left=input.offsetLeft+'px';
+//		suggestionBox.style.left=input.offsetLeft+'px';
 
 		input.parentNode.insertBefore(suggestionBox,element.nextSibling);
 
@@ -97,9 +97,19 @@
 			else if(k==27) {
 				input.value='';
 			}
-			suggestionBox.style.visibility=(input.value.length)?'visible':'hidden';
+			
+			if(input.value.length) {
+				suggestionBox.style.visibility='visible';
+				document.body.onclick=hide;
+			}
 		}
 
+		function hide() {
+			input.value='';
+			suggestionBox.style.visibility='hidden';
+			document.body.onclick=null;
+		}
+		
 		function process() {
 			emptyNode(suggestionBox);
 			if(ajax.readyState==4) {
