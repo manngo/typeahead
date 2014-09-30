@@ -89,9 +89,13 @@
 
 			if(k==8 || k==46 || k==32 || k>=48 && k<=57 || k>=64 && k<=90) {	// fetch results
 				if(input.value.length) {
+say('start')
 					if(ajax.readyState) ajax.abort();
+say(1)
 					ajax.open('get',url+input.value,true);
+say(2)
 					ajax.send(null);
+say(3)
 				}
 			}
 			else if(k==27) {
