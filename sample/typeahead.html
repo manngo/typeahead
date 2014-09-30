@@ -13,7 +13,7 @@
 
 			var element='form#sample input[name="town"]';
 			var options={"suggestions":"suggestions"};
-			var url='server/postcodes.php?limit=16&town=';
+			var url='http://widgets.comparity.net/postcodes.php?limit=16&town=';
 			var template='[locality] [state] [postcode]';
 			function callback(result) {
 				form['location'].value=result.locality;
