@@ -89,7 +89,8 @@
 				if(input.value.length) {
 					if(ajax.readyState) ajax.abort();
 					ajax.open('get',url+input.value,true);
-					ajax.onreadystatechange=function() {
+					ajax.onreadystatechange=process;
+/*					ajax.onreadystatechange=function() {
 						emptyNode(suggestionBox);
 						if(ajax.readyState==4) {
 							if(ajax.responseText) {
@@ -115,7 +116,9 @@
 								}
 							}
 						}
+
 					};
+*/
 					ajax.send(null);
 				}
 			}
@@ -123,6 +126,34 @@
 				input.value='';
 			}
 			suggestionBox.style.visibility=(input.value.length)?'visible':'hidden';
+		}
+
+		function process() {
+						emptyNode(suggestionBox);
+						if(ajax.readyState==4) {
+							if(ajax.responseText) {
+							suggestions=JSON.parse(ajax.responseText);
+							if(suggestions.length)
+								for(var i=0;i<suggestions.length;i++) {
+									var	result=suggestions[i];
+										result.text=template.replace(/\[(.*?)\]/g,function(match,p1) {
+											return result[p1]===undefined?p1:result[p1];
+										});
+									var	element=document.createElement('p');
+										element.appendChild(document.createTextNode(result.text));
+										element.onmouseover=highlightSuggestion;
+										element.onmouseout=lowlightSuggestion;
+									element.onclick = function(q) {
+										return function () {
+											callback(q);
+											input.value=q.text;
+											suggestionBox.style.visibility='hidden';
+										};
+									}(result);
+									suggestionBox.appendChild(element);
+								}
+							}
+						}
 		}
 
 		function emptyNode(node) {

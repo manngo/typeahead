@@ -55,6 +55,7 @@
 		input.focus();
 		input.onkeyup=doKeyup;
 		input.onkeydown=doKeydown;
+		ajax.onreadystatechange=process;
 
 		suggestionBox=document.createElement('div');
 
@@ -72,7 +73,6 @@
 				suggestionBox.setAttribute(suggestionStyle,true);
 		}
 
-		suggestionBox.className='suggestions';
 		suggestionBox.style.width=(input.offsetWidth-2)+'px';
 		suggestionBox.style.left=input.offsetLeft+'px';
 
@@ -87,37 +87,10 @@
 			event=event||window.event;
 			var k=event.keyCode;
 
-			if(k==8 || k==46 || k==32 || k>=48&&k<=57 || k>=64&&k<=90) {	// fetch results
+			if(k==8 || k==46 || k==32 || k>=48 && k<=57 || k>=64 && k<=90) {	// fetch results
 				if(input.value.length) {
 					if(ajax.readyState) ajax.abort();
 					ajax.open('get',url+input.value,true);
-					ajax.onreadystatechange=function() {
-						emptyNode(suggestionBox);
-						if(ajax.readyState==4) {
-							if(ajax.responseText) {
-							suggestions=JSON.parse(ajax.responseText);
-							if(suggestions.length)
-								for(var i=0;i<suggestions.length;i++) {
-									var	result=suggestions[i];
-										result.text=template.replace(/\[(.*?)\]/g,function(match,p1) {
-											return result[p1]===undefined?p1:result[p1];
-										});
-									var	element=document.createElement('p');
-										element.appendChild(document.createTextNode(result.text));
-										element.onmouseover=highlightSuggestion;
-										element.onmouseout=lowlightSuggestion;
-									element.onclick = function(q) {
-										return function () {
-											callback(q);
-											input.value=q.text;
-											suggestionBox.style.visibility='hidden';
-										};
-									}(result);
-									suggestionBox.appendChild(element);
-								}
-							}
-						}
-					};
 					ajax.send(null);
 				}
 			}
@@ -125,6 +98,34 @@
 				input.value='';
 			}
 			suggestionBox.style.visibility=(input.value.length)?'visible':'hidden';
+		}
+
+		function process() {
+			emptyNode(suggestionBox);
+			if(ajax.readyState==4) {
+				if(ajax.responseText) {
+				suggestions=JSON.parse(ajax.responseText);
+				if(suggestions.length)
+					for(var i=0;i<suggestions.length;i++) {
+						var	result=suggestions[i];
+							result.text=template.replace(/\[(.*?)\]/g,function(match,p1) {
+								return result[p1]===undefined?p1:result[p1];
+							});
+						var	element=document.createElement('p');
+							element.appendChild(document.createTextNode(result.text));
+							element.onmouseover=highlightSuggestion;
+							element.onmouseout=lowlightSuggestion;
+						element.onclick = function(q) {
+							return function () {
+								callback(q);
+								input.value=q.text;
+								suggestionBox.style.visibility='hidden';
+							};
+						}(result);
+						suggestionBox.appendChild(element);
+					}
+				}
+			}
 		}
 
 		function emptyNode(node) {
