@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Typeahead Postcodes</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="...">
+	<script type="text/javascript" src="typeahead.js"></script>
+	<script type="text/javascript">
+		window.onload=init;
+		function init() {
+			/*global typeAhead */
+			var form=document.querySelector('form#sample');
+
+			var element='form#sample input[name="town"]';
+			var options={"suggestions":"suggestions"};
+			var url='server/postcodes.php?limit=16&town=';
+			var template='[locality] [state] [postcode]';
+			function callback(result) {
+				form['location'].value=result.locality;
+				form['state'].value=result.state;
+				form['postcode'].value=result.postcode;
+			}
+
+			typeAhead(element,url,template,callback,options);
+		}
+	</script>
+	<style type="text/css">
+		form#sample input {
+			width: 320px;
+		}
+		label {
+			font-weight: bold;
+		}
+		div[suggestions] {
+			visibility:	hidden;
+			position: absolute;
+			border: 1px solid rgb(127, 157, 185);
+			background-color: white;
+			font-family: sans-serif;
+			font-size: .6em;
+			cursor: default;
+		}
+		div[suggestions] p {
+			margin: .125em .25em;
+		}
+		div[suggestions] p.hover {
+			background-color: lightblue;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Typeahead Post Codes</h1>
+	<p id="message">&nbsp;</p>
+	<form action="" method="post" id="sample">
+		<p><label>Town<br><input name="town" type="text" autocomplete="off"></label></p>
+		<p><label>Location<br><input name="location" type="text" autocomplete="off"></label></p>
+		<p><label>State<br><input name="state" type="text" autocomplete="off"></label></p>
+		<p><label>Post Code<br><input name="postcode" type="text" autocomplete="off"></label></p>
+
+		<p><button name="ok" type="submit">OK</button></p>
+	</form>
+	<p>Etc</p>
+</body>
+</html>
