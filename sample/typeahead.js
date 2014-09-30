@@ -44,11 +44,9 @@
 		'use strict';
 		//	Options
 			options=options||{};
-say(9)
-say(options.suggestions)
-say(10)
-			var suggestionStyle=options.suggestions||'@suggestions';
-say(0)
+
+		var suggestionStyle=options.suggestions||'@suggestions';
+
 		var input=document.querySelector(element);
 		var	suggestionBox,
 			ajax=new XMLHttpRequest(),
@@ -73,7 +71,7 @@ say(0)
 			default:
 				suggestionBox.setAttribute(suggestionStyle,true);
 		}
-say(suggestionStyle)
+
 		suggestionBox.className='suggestions';
 		suggestionBox.style.width=(input.offsetWidth-2)+'px';
 		suggestionBox.style.left=input.offsetLeft+'px';
