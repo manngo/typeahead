@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Typeahead by manngo</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Typeahead</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/manngo/typeahead">View the Project on GitHub <small>manngo/typeahead</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/manngo/typeahead/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/manngo/typeahead/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/manngo/typeahead">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="typeahead-ajax" class="anchor" href="#typeahead-ajax"><span class="octicon octicon-link"></span></a>typeahead ajax</h1>
+
+<p>Connects to a server and populates a box with matches.</p>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ol>
+<li> A form with a textbox for input. This will used for typeahead, so it needs to be identifiable. In the sample below, the form has an id, and the textbox has a name.</li>
+<li>A server prepared to respond to an GET request, returning some sort of data in JSON format. It should represent an array of objects.</li>
+</ol><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>typeAhead(element,url,template,callback);
+</code></pre>
+
+<h3>
+<a name="code" class="anchor" href="#code"><span class="octicon octicon-link"></span></a>Code</h3>
+
+<p>HTML</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"test"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"data"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<p>JS</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">element</span><span class="o">=</span><span class="s1">'form#test input[name="data"]'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">url</span><span class="o">=</span><span class="s1">'http://…'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">template</span><span class="o">=</span><span class="s1">'[item] [item]'</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//  process result</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">"suggestions"</span><span class="o">:</span><span class="s2">"suggestions"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">typeAhead</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">template</span><span class="p">,</span><span class="nx">callback</span><span class="p">,</span><span class="nx">options</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="parameters" class="anchor" href="#parameters"><span class="octicon octicon-link"></span></a>Parameters</h3>
+
+<table>
+<thead><tr>
+<th align="left">Option</th>
+<th align="left">Meanning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">element</td>
+<td align="left">Selector of input element to become typehead element</td>
+</tr>
+<tr>
+<td align="left">url</td>
+<td align="left">URL for ajax data</td>
+</tr>
+<tr>
+<td align="left">template</td>
+<td align="left">String with pattern to display inside suggestions enclose database fields in square brackets</td>
+</tr>
+<tr>
+<td align="left">callback</td>
+<td align="left">Callback function to process results. The result object is an array of objects matching the request.</td>
+</tr>
+<tr>
+<td align="left">options</td>
+<td align="left">An optional object – currently only the selector is available.</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="samples" class="anchor" href="#samples"><span class="octicon octicon-link"></span></a>Samples</h3>
+
+<h4>
+<a name="element" class="anchor" href="#element"><span class="octicon octicon-link"></span></a>element</h4>
+
+<pre><code>form#data input[name=town]
+</code></pre>
+
+<h4>
+<a name="url" class="anchor" href="#url"><span class="octicon octicon-link"></span></a>url</h4>
+
+<pre><code>test
+</code></pre>
+
+<h4>
+<a name="template" class="anchor" href="#template"><span class="octicon octicon-link"></span></a>template</h4>
+
+<pre><code>[town] [state] [postcode]
+</code></pre>
+
+<h4>
+<a name="callback" class="anchor" href="#callback"><span class="octicon octicon-link"></span></a>callback</h4>
+
+<pre><code>function(result) {
+
+}
+</code></pre>
+
+<p>The callback function takes one parameter, which is an array with the results.</p>
+
+<h4>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>options</h4>
+
+<pre><code>{
+"suggestions": "suggestions",
+};
+</code></pre>
+
+<p>The only option available is the selector for the selection box. This allows you to make changes to the appearance in CSS. The value takes the following format:</p>
+
+<table>
+<thead><tr>
+<th align="left">Format</th>
+<th align="left">Meaning</th>
+<th align="left">CSS Selector</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left"><a href="https://github.com/someting" class="user-mention">@someting</a></td>
+<td align="left">attribute</td>
+<td align="left">div[something]</td>
+</tr>
+<tr>
+<td align="left">#something</td>
+<td align="left">id</td>
+<td align="left">div#something</td>
+</tr>
+<tr>
+<td align="left">.something</td>
+<td align="left">class</td>
+<td align="left">div.something</td>
+</tr>
+<tr>
+<td align="left">something</td>
+<td align="left">attribute</td>
+<td align="left">div[something]</td>
+</tr>
+</tbody>
+</table><h2>
+<a name="sample" class="anchor" href="#sample"><span class="octicon octicon-link"></span></a>Sample</h2>
+
+<p>The Sample file says it all, but here are the important parts:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"typeahead.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span><span class="o">=</span><span class="nx">init</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">form</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'form#sample'</span><span class="p">);</span>
+        <span class="nx">typeAhead</span><span class="p">(</span><span class="s1">'form#sample input[name="town"]'</span><span class="p">,</span><span class="s1">'http://widgets.comparity.net/postcodes.php?limit=16&amp;town='</span><span class="p">,</span><span class="s1">'[locality] [state] [postcode]'</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">form</span><span class="p">[</span><span class="s1">'location'</span><span class="p">].</span><span class="nx">value</span><span class="o">=</span><span class="nx">result</span><span class="p">.</span><span class="nx">locality</span><span class="p">;</span>
+            <span class="nx">form</span><span class="p">[</span><span class="s1">'state'</span><span class="p">].</span><span class="nx">value</span><span class="o">=</span><span class="nx">result</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+            <span class="nx">form</span><span class="p">[</span><span class="s1">'postcode'</span><span class="p">].</span><span class="nx">value</span><span class="o">=</span><span class="nx">result</span><span class="p">.</span><span class="nx">postcode</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<h3>
+<a name="to-do" class="anchor" href="#to-do"><span class="octicon octicon-link"></span></a>To Do:</h3>
+
+<ol>
+<li> Consolidate input &amp; element variables</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/manngo">manngo</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
