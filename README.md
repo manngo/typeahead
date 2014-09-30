@@ -88,6 +88,8 @@ The only option available is the selector for the selection box. This allows you
 Sample
 ------
 
+This release has a sample folder. To view the sample live, see [http://github.manngo.net/typeahead/](http://github.manngo.net/typeahead/ "Sample Site")
+
 The Sample file says it all, but here are the important parts:
 
 ```html
@@ -107,4 +109,4 @@ The Sample file says it all, but here are the important parts:
 
 ###To Do:
 
-3.	Consolidate input & element variables
+1.	Consolidate input & element variables
