@@ -17,7 +17,7 @@ Usage
 
 	typeAhead(element,url,template,callback);
 
-###Code
+### Code
 
 HTML
 
@@ -43,7 +43,7 @@ var options={
 typeAhead(element,url,template,callback,options);
 ```
 
-###Parameters
+### Parameters
 
 | Option	| Meanning |
 | :-----	| :-------- |
@@ -53,19 +53,22 @@ template	| String with pattern to display inside suggestions enclose database fi
 callback	| Callback function to process results. The result object is an array of objects matching the request.
 options	| An optional object – currently only the selector is available.
 
-###Samples
+### Samples
 
-####element
+#### element
+
 	form#data input[name=town]
 
-####url
+#### url
+
 	test
 
 
-####template
+#### template
+
 	[town] [state] [postcode]
 
-####callback
+#### callback
 
 	function(result) {
 	
@@ -73,7 +76,8 @@ options	| An optional object – currently only the selector is available.
 
 The callback function takes one parameter, which is an array with the results.
 
-####options
+#### options
+
 	{
 	"suggestions": "suggestions",
 	};
@@ -109,6 +113,6 @@ The Sample file says it all, but here are the important parts:
 	</script>
 ```
 
-###To Do:
+### To Do:
 
 1.	Consolidate input & element variables
